@@ -1,22 +1,33 @@
 // code for project 1 by Jacob and Tyler
 
-//includes are below
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <sys/stat.h>
-#include <semaphore.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/resource.h>
 #include <signal.h>
+#include <time.h>
 
-int main(){
 
-	int k;
-	printf("How many nodes would you like to spawn?");
-	scanf("%d", &k);
-	printf("k is... %d\n", k); 
+#define MAX_LINE_SIZE 255
 
+
+void signalHandler (int sigNum)
+{
+        printf("Ending program got a control C\n");
+        exit(0);
+}
+
+
+int main() {
+signal(SIGINT, signalHandler);
+
+
+ printf("Enter value for k: ");
+
+   char temp[MAX_LINE_SIZE];
+   char k[MAX_LINE_SIZE];
+   fgets(k, MAX_LINE_SIZE, stdin);
+
+   strcpy(temp,k);
 }
