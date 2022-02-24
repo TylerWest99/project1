@@ -1,0 +1,64 @@
+// Pipe sends info one way from one process to another
+// Part of inter process communication 
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
+#define READ 0
+#define WRITE 1
+
+int main()
+{
+	int myPipe[2];
+	int pipeCreationResult;
+	int pid;
+
+	pipeCreationResult = pipe(myPipe);
+
+	if(pipeCreationResult < 0){
+		printf("Failed\n");
+		exit(1);
+	}	
+
+	pid = fork();
+
+	if(pid < 0){
+		printf("Failed\n");
+		exit(1);
+	}
+
+	int output = 78;
+	double output2 = 97.97;
+	int input;
+	double input2;
+
+	if(pid == 0){
+		//printf("This is the child process\n");
+		close(myPipe[READ]);
+		write(myPipe[WRITE], &output, sizeof(int));
+		printf("Child wrote %d\n", output);
+	
+		write(myPipe[WRITE], &output2, sizeof(double));
+                printf("Child wrote %f\n", output2);
+	}
+	else{
+		//printf("This is the parent process\n");
+		close(myPipe[WRITE]);
+		read(myPipe[READ], &input, sizeof(int));
+		printf("Parent recieved %d from child process \n", input);
+
+	        read(myPipe[READ], &input2, sizeof(double));
+                printf("Parent recieved %f from child process \n", input2);
+	}
+
+	//printf("Hello world\n");
+	return 0;
+
+	
+
+
+
+}

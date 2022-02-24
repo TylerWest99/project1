@@ -14,7 +14,7 @@
 
 void signalHandler (int sigNum)
 {
-        printf("Ending program got a control C\n");
+        printf("\nEnding program got a control C\n");
         exit(0);
 }
 
