@@ -20,14 +20,10 @@ void signalHandler (int sigNum)
 
 
 int main() {
-signal(SIGINT, signalHandler);
+	signal(SIGINT, signalHandler);
 
-
- printf("Enter value for k: ");
-
-   char temp[MAX_LINE_SIZE];
-   char k[MAX_LINE_SIZE];
-   fgets(k, MAX_LINE_SIZE, stdin);
-
-   strcpy(temp,k);
+	int k;
+	printf("Enter value for k: ");
+	scanf("%d", &k);
+	printf("Value of k is... %d\n", k);
 }
