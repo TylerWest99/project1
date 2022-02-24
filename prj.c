@@ -7,6 +7,7 @@
 #include <sys/resource.h>
 #include <signal.h>
 #include <time.h>
+#include <unistd.h>
 
 
 #define MAX_LINE_SIZE 255
@@ -20,10 +21,26 @@ void signalHandler (int sigNum)
 
 
 int main() {
+
 	signal(SIGINT, signalHandler);
 
 	int k;
 	printf("Enter value for k: ");
 	scanf("%d", &k);
-	printf("Value of k is... %d\n", k);
+	//printf("Value of k is... %d\n", k);
+	
+	// sets k to be for 3 nodes
+	k = 3;
+
+	int parentID = getpid();
+	
+
+	for(int i = 0; i < k; i++){
+		if(parentID == getpid()){
+			printf("Mission accomplished process made\n");
+			fork();
+			//printf("Mission accomplished process made\n");		
+		}
+	}
+	printf("process... %d\n", getpid());
 }
