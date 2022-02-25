@@ -22,15 +22,18 @@ void signalHandler (int sigNum)
 
 int main() {
 
+	//signal
 	signal(SIGINT, signalHandler);
-
+	
 	int k;
 	printf("Enter value for k: ");
 	scanf("%d", &k);
 
+	// gets parent ID
 	int parentID = getpid();
 	int nodeID;
 
+	// creates each node with a process and gives the node a node ID
 	for(int i = 0; i < k; i++){
 		if(fork() == 0){
 			nodeID = i;
@@ -38,7 +41,8 @@ int main() {
 			exit(0);
 		}
 	}
-
+	
+	//waits for each process
 	for(int i = 0; i < k; i++){
 		wait(NULL);
 	}
