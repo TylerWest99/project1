@@ -35,6 +35,8 @@ int main() {
 	
 	//makes node id var for each child to use
 	int nodeID;
+	//makes header string for each message
+	char* header;
 
 	//creates pipe for parent and children
 	int myPipe[2];
@@ -45,7 +47,9 @@ int main() {
 	for(int i = 0; i < k; i++){
 		if(fork() == 0){
 			// Code for each node and child process here!
+			// Node ids and headers for different and not shared for each node 
 			nodeID = i;
+			header = "";
 			printf("Child process created! parent process: %d, child process: %d, nodeID: %d\n", getppid(), getpid(), nodeID);
 			exit(0);
 		}
