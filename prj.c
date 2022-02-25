@@ -11,7 +11,8 @@
 #include <semaphore.h>
 
 #define MAX_LINE_SIZE 255
-
+#define READ 0
+#define WRITE 1
 
 void signalHandler (int sigNum)
 {
@@ -31,13 +32,21 @@ int main() {
 
 	// gets parent ID
 	int parentID = getpid();
+	
+	//makes node id var for each child to use
 	int nodeID;
+
+	//creates pipe for parent and children
+	int myPipe[2];
+	int pipeResult;
+	pipeResult = pipe(myPipe);
 
 	// creates each node with a process and gives the node a node ID
 	for(int i = 0; i < k; i++){
 		if(fork() == 0){
+			// Code for each node and child process here!
 			nodeID = i;
-			printf("parent process: %d, child process: %d, nodeID: %d\n", getppid(), getpid(), nodeID);
+			printf("Child process created! parent process: %d, child process: %d, nodeID: %d\n", getppid(), getpid(), nodeID);
 			exit(0);
 		}
 	}
